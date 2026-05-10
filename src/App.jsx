@@ -86,6 +86,7 @@ export default function App() {
                   data={electionData} 
                   activeNodeId={activeNodeId} 
                   setActiveNodeId={setActiveNodeId} 
+                  scrollerRef={scrollRef}
                 />
               </div>
             </div>

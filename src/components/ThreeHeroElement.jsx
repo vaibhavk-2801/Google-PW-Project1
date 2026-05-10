@@ -51,7 +51,6 @@ export default function ThreeHeroElement() {
   return (
     <div className="w-full h-[400px] md:h-[500px] relative z-10 cursor-grab active:cursor-grabbing">
       <Canvas shadows camera={{ position: [0, 2, 5], fov: 45 }}>
-        <color attach="background" args={['transparent']} />
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
         <PresentationControls 

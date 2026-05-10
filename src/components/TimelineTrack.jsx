@@ -10,7 +10,7 @@ function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export default function TimelineTrack({ data, activeNodeId, setActiveNodeId }) {
+export default function TimelineTrack({ data, activeNodeId, setActiveNodeId, scrollerRef }) {
   const containerRef = useRef(null);
   const nodeRefs = useRef([]);
 
@@ -28,7 +28,7 @@ export default function TimelineTrack({ data, activeNodeId, setActiveNodeId }) {
             ease: 'power3.out',
             scrollTrigger: {
               trigger: node,
-              scroller: "[data-scroll-container]",
+              scroller: scrollerRef?.current || window,
               start: 'top 80%',
               toggleActions: 'play none none reverse'
             }

@@ -8,10 +8,8 @@ function cn(...inputs) {
 }
 
 export default function DashboardPanel({ activeNodeData, completedTasks, toggleTask }) {
-  if (!activeNodeData) return null;
-
   return (
-    <div className="glass-panel p-6 md:p-8 rounded-2xl w-full max-w-xl mx-auto md:mx-0 transition-all duration-500">
+    <div className="glass-panel p-6 md:p-8 rounded-2xl w-full max-w-xl mx-auto md:mx-0 transition-all duration-500 sticky top-32 h-max">
       
       {/* Header */}
       <div className="mb-6">

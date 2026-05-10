@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import LocomotiveScroll from 'locomotive-scroll';
+import React, { useState, useEffect } from 'react';
+import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -11,42 +11,20 @@ import { electionData } from './data/electionData';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
-  const scrollRef = useRef(null);
   const [persona, setPersona] = useState(null);
   const [activeNodeId, setActiveNodeId] = useState(electionData[0].id);
   const [completedTasks, setCompletedTasks] = useState([]);
 
-  // Setup Locomotive Scroll
+  // Setup Lenis Smooth Scroll
   useEffect(() => {
-    if (!scrollRef.current) return;
-    
-    const locomotiveScroll = new LocomotiveScroll({
-      el: scrollRef.current,
-      smooth: true,
-      multiplier: 1,
-      class: 'is-reveal'
+    const lenis = new Lenis({
+      autoRaf: true,
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
     });
-
-    locomotiveScroll.on("scroll", ScrollTrigger.update);
-
-    ScrollTrigger.scrollerProxy(scrollRef.current, {
-      scrollTop(value) {
-        return arguments.length 
-          ? locomotiveScroll.scrollTo(value, 0, 0) 
-          : locomotiveScroll.scroll.instance.scroll.y;
-      },
-      getBoundingClientRect() {
-        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-      },
-      pinType: scrollRef.current.style.transform ? "transform" : "fixed"
-    });
-
-    ScrollTrigger.addEventListener("refresh", () => locomotiveScroll.update());
-    ScrollTrigger.refresh();
 
     return () => {
-      ScrollTrigger.removeEventListener("refresh", () => locomotiveScroll.update());
-      if (locomotiveScroll) locomotiveScroll.destroy();
+      lenis.destroy();
     };
   }, []);
 
@@ -73,10 +51,10 @@ export default function App() {
         />
       </div>
 
-      <main ref={scrollRef} data-scroll-container className="bg-slate-950 min-h-screen text-slate-200">
+      <main className="bg-slate-950 min-h-screen text-slate-200">
         <HeroSection persona={persona} setPersona={setPersona} />
         
-        <section id="dashboard-container" className="relative px-4 py-24 md:py-32" data-scroll-section>
+        <section id="dashboard-container" className="relative px-4 py-24 md:py-32">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 lg:gap-24 h-full">
             
             {/* Left Column: Timeline Track */}
@@ -85,26 +63,23 @@ export default function App() {
                 data={electionData} 
                 activeNodeId={activeNodeId} 
                 setActiveNodeId={setActiveNodeId} 
-                scrollerRef={scrollRef}
               />
             </div>
 
             {/* Right Column: Dashboard Panel */}
             <div className="w-full md:w-7/12 mt-12 md:mt-0 relative">
-              <div data-scroll data-scroll-sticky data-scroll-target="#dashboard-container">
-                <DashboardPanel 
-                  activeNodeData={activeNodeData} 
-                  completedTasks={completedTasks}
-                  toggleTask={toggleTask}
-                />
-              </div>
+              <DashboardPanel 
+                activeNodeData={activeNodeData} 
+                completedTasks={completedTasks}
+                toggleTask={toggleTask}
+              />
             </div>
             
           </div>
         </section>
         
         {/* Footer */}
-        <footer className="py-12 text-center text-slate-600 border-t border-white/5" data-scroll-section>
+        <footer className="py-12 text-center text-slate-600 border-t border-white/5">
           <p>CivicFlow © 2026. Empowering informed decisions.</p>
         </footer>
       </main>

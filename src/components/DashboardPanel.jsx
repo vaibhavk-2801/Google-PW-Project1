@@ -11,7 +11,7 @@ export default function DashboardPanel({ activeNodeData, completedTasks, toggleT
   if (!activeNodeData) return null;
 
   return (
-    <div className="glass-panel p-6 md:p-8 rounded-2xl w-full max-w-xl mx-auto md:mx-0 transition-all duration-500 sticky top-32">
+    <div className="glass-panel p-6 md:p-8 rounded-2xl w-full max-w-xl mx-auto md:mx-0 transition-all duration-500">
       
       {/* Header */}
       <div className="mb-6">

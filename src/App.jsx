@@ -76,8 +76,8 @@ export default function App() {
       <main ref={scrollRef} data-scroll-container className="bg-slate-950 min-h-screen text-slate-200">
         <HeroSection persona={persona} setPersona={setPersona} />
         
-        <section className="relative px-4 py-24 md:py-32" data-scroll-section>
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 lg:gap-24">
+        <section id="dashboard-container" className="relative px-4 py-24 md:py-32" data-scroll-section>
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 lg:gap-24 h-full">
             
             {/* Left Column: Timeline Track */}
             <div className="w-full md:w-5/12 flex-shrink-0 pt-12">
@@ -90,12 +90,14 @@ export default function App() {
             </div>
 
             {/* Right Column: Dashboard Panel */}
-            <div className="w-full md:w-7/12 mt-12 md:mt-0">
-              <DashboardPanel 
-                activeNodeData={activeNodeData} 
-                completedTasks={completedTasks}
-                toggleTask={toggleTask}
-              />
+            <div className="w-full md:w-7/12 mt-12 md:mt-0 relative">
+              <div data-scroll data-scroll-sticky data-scroll-target="#dashboard-container">
+                <DashboardPanel 
+                  activeNodeData={activeNodeData} 
+                  completedTasks={completedTasks}
+                  toggleTask={toggleTask}
+                />
+              </div>
             </div>
             
           </div>

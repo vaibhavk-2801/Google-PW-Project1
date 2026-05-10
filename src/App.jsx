@@ -80,15 +80,13 @@ export default function App() {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 lg:gap-24">
             
             {/* Left Column: Timeline Track */}
-            <div className="w-full md:w-5/12 flex-shrink-0">
-              <div className="sticky top-24">
-                <TimelineTrack 
-                  data={electionData} 
-                  activeNodeId={activeNodeId} 
-                  setActiveNodeId={setActiveNodeId} 
-                  scrollerRef={scrollRef}
-                />
-              </div>
+            <div className="w-full md:w-5/12 flex-shrink-0 pt-12">
+              <TimelineTrack 
+                data={electionData} 
+                activeNodeId={activeNodeId} 
+                setActiveNodeId={setActiveNodeId} 
+                scrollerRef={scrollRef}
+              />
             </div>
 
             {/* Right Column: Dashboard Panel */}

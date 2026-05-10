@@ -34,6 +34,15 @@ export default function TimelineTrack({ data, activeNodeId, setActiveNodeId, scr
             }
           }
         );
+
+        ScrollTrigger.create({
+          trigger: node,
+          scroller: scrollerRef?.current || window,
+          start: 'top 50%',
+          end: 'bottom 50%',
+          onEnter: () => setActiveNodeId(node.id),
+          onEnterBack: () => setActiveNodeId(node.id)
+        });
       });
     }, containerRef);
 
@@ -45,7 +54,7 @@ export default function TimelineTrack({ data, activeNodeId, setActiveNodeId, scr
       {/* Vertical line */}
       <div className="absolute left-[39px] top-0 bottom-0 w-[2px] bg-white/10" />
       
-      <div className="space-y-24 relative z-10">
+      <div className="space-y-[40vh] relative z-10 pb-[20vh]">
         {data.map((node, index) => {
           const isActive = activeNodeId === node.id;
           return (

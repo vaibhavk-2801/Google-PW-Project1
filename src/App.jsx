@@ -27,7 +27,25 @@ export default function App() {
       class: 'is-reveal'
     });
 
+    locomotiveScroll.on("scroll", ScrollTrigger.update);
+
+    ScrollTrigger.scrollerProxy(scrollRef.current, {
+      scrollTop(value) {
+        return arguments.length 
+          ? locomotiveScroll.scrollTo(value, 0, 0) 
+          : locomotiveScroll.scroll.instance.scroll.y;
+      },
+      getBoundingClientRect() {
+        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+      },
+      pinType: scrollRef.current.style.transform ? "transform" : "fixed"
+    });
+
+    ScrollTrigger.addEventListener("refresh", () => locomotiveScroll.update());
+    ScrollTrigger.refresh();
+
     return () => {
+      ScrollTrigger.removeEventListener("refresh", () => locomotiveScroll.update());
       if (locomotiveScroll) locomotiveScroll.destroy();
     };
   }, []);

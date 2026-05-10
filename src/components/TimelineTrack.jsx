@@ -28,6 +28,7 @@ export default function TimelineTrack({ data, activeNodeId, setActiveNodeId }) {
             ease: 'power3.out',
             scrollTrigger: {
               trigger: node,
+              scroller: "[data-scroll-container]",
               start: 'top 80%',
               toggleActions: 'play none none reverse'
             }

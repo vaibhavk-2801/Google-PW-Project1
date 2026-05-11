@@ -16,10 +16,10 @@ export default function TimelineTrack({ data, activeNodeId, setActiveNodeId }) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      nodeRefs.current.forEach((node, index) => {
-        if (!node) return;
+      nodeRefs.current.forEach((el, index) => {
+        if (!el) return;
         
-        gsap.fromTo(node,
+        gsap.fromTo(el,
           { opacity: 0, x: -50 },
           {
             opacity: 1,
@@ -27,7 +27,7 @@ export default function TimelineTrack({ data, activeNodeId, setActiveNodeId }) {
             duration: 0.8,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: node,
+              trigger: el,
               start: 'top 80%',
               toggleActions: 'play none none reverse'
             }
@@ -35,11 +35,11 @@ export default function TimelineTrack({ data, activeNodeId, setActiveNodeId }) {
         );
 
         ScrollTrigger.create({
-          trigger: node,
+          trigger: el,
           start: 'top 50%',
           end: 'bottom 50%',
-          onEnter: () => setActiveNodeId(node.id),
-          onEnterBack: () => setActiveNodeId(node.id)
+          onEnter: () => setActiveNodeId(data[index].id),
+          onEnterBack: () => setActiveNodeId(data[index].id)
         });
       });
     }, containerRef);

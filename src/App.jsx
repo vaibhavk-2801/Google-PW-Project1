@@ -6,6 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroSection from './components/HeroSection';
 import TimelineTrack from './components/TimelineTrack';
 import DashboardPanel from './components/DashboardPanel';
+import CustomCursor from './components/CustomCursor';
+import ThreeBackground from './components/ThreeBackground';
 import { electionData } from './data/electionData';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -43,6 +45,8 @@ export default function App() {
 
   return (
     <div className="relative">
+      <CustomCursor />
+      <ThreeBackground />
       {/* Global Civic Readiness Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-2 bg-slate-900 z-50">
         <div 
@@ -51,7 +55,7 @@ export default function App() {
         />
       </div>
 
-      <main className="bg-slate-950 min-h-screen text-slate-200">
+      <main className="min-h-screen text-slate-200 bg-transparent">
         <HeroSection persona={persona} setPersona={setPersona} />
         
         <section id="dashboard-container" className="relative px-4 py-24 md:py-32">
@@ -72,6 +76,8 @@ export default function App() {
                 activeNodeData={activeNodeData} 
                 completedTasks={completedTasks}
                 toggleTask={toggleTask}
+                globalProgress={globalProgress}
+                persona={persona}
               />
             </div>
             
